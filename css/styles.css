@@ -74,6 +74,16 @@
     scroll-behavior: smooth;
   }
 }
+body {
+  font-family: 'Inter', sans-serif !important;
+  color: #222 !important; /* set text fully black */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Lato', sans-serif !important;
+  color: #000 !important;
+}
+
 
 body {
   margin: 0;
