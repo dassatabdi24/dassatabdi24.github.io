@@ -12488,3 +12488,15 @@ section.resume-section:nth-of-type(even) {
     align-items: center;
   }
 }
+
+/* Profile photo at the top of About on phones and tablets */
+
+.hero-photo {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--accent-soft);
+  box-shadow: 0 6px 18px rgba(17, 24, 39, 0.1);
+  margin-bottom: 1.25rem;
+}
