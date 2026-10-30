@@ -165,8 +165,9 @@ const visitedPlaces = [
     { code: 'PT', name: 'Portugal', coords: [39.4, -8.2] },
     { code: 'FR', name: 'France', coords: [46.6, 2.2] },
     { code: 'IT', name: 'Italy', coords: [41.9, 12.5] },
-    // Malta is too small to be a region on the world map, so it's shown as a marker
+    // Malta and Vatican City are too small to be regions on the world map, so they're shown as markers
     { code: 'MT', name: 'Malta', coords: [35.9, 14.4], marker: true },
+    { code: 'VA', name: 'Vatican City', coords: [41.9, 12.45], marker: true },
 ];
 
 // Cities where I presented my research, shown as amber markers
