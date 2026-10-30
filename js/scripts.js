@@ -32,9 +32,126 @@ window.addEventListener('DOMContentLoaded', event => {
     });
 
     initTravelMap();
+    initEmailLinks();
 
 });
 
+// Email links open a small menu so visitors can write in Gmail or Outlook in a new
+// tab, use their mail app, or copy the address. Without JS the link is a plain mailto.
+function initEmailLinks() {
+    let menu = null;
+    let toast = null;
+    let hideTimer = null;
+    let openFor = null;
+
+    function showToast(message) {
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.className = 'copy-toast';
+            toast.setAttribute('role', 'status');
+            document.body.appendChild(toast);
+        }
+        toast.textContent = message;
+        toast.classList.add('show');
+        clearTimeout(hideTimer);
+        hideTimer = setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    function closeMenu() {
+        if (menu) {
+            menu.classList.remove('open');
+        }
+        if (openFor) {
+            openFor.setAttribute('aria-expanded', 'false');
+        }
+        openFor = null;
+    }
+
+    function addOption(icon, label, onClick) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.setAttribute('role', 'menuitem');
+        button.innerHTML = '<i class="' + icon + '"></i>';
+        button.append(' ' + label);
+        button.addEventListener('click', () => {
+            onClick();
+            closeMenu();
+        });
+        menu.appendChild(button);
+    }
+
+    function buildMenu(email) {
+        menu = document.createElement('div');
+        menu.className = 'email-menu';
+        menu.setAttribute('role', 'menu');
+        const to = encodeURIComponent(email);
+        addOption('fab fa-google', 'Gmail', () => {
+            window.open('https://mail.google.com/mail/?view=cm&fs=1&to=' + to, '_blank', 'noopener');
+        });
+        addOption('fab fa-microsoft', 'Outlook', () => {
+            window.open('https://outlook.office.com/mail/deeplink/compose?to=' + to, '_blank', 'noopener');
+        });
+        addOption('fas fa-envelope-open-text', 'Mail app', () => {
+            window.location.href = 'mailto:' + email;
+        });
+        addOption('far fa-copy', 'Copy address', () => {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(email)
+                    .then(() => showToast('Email copied: ' + email))
+                    .catch(() => showToast(email));
+            } else {
+                showToast(email);
+            }
+        });
+        document.body.appendChild(menu);
+    }
+
+    function openMenu(link) {
+        if (!menu) {
+            buildMenu(link.dataset.email);
+        }
+        // Place the menu under the icon (or above it when there's no room below),
+        // kept inside the window
+        const rect = link.getBoundingClientRect();
+        menu.classList.add('open');
+        const left = Math.min(
+            Math.max(8, rect.left + window.scrollX),
+            window.scrollX + document.documentElement.clientWidth - menu.offsetWidth - 8
+        );
+        const fitsBelow = rect.bottom + 8 + menu.offsetHeight <= window.innerHeight;
+        const top = fitsBelow ? rect.bottom + 8 : rect.top - 8 - menu.offsetHeight;
+        menu.style.left = left + 'px';
+        menu.style.top = (top + window.scrollY) + 'px';
+        link.setAttribute('aria-expanded', 'true');
+        openFor = link;
+    }
+
+    document.querySelectorAll('a[data-email]').forEach(link => {
+        link.setAttribute('aria-haspopup', 'menu');
+        link.setAttribute('aria-expanded', 'false');
+        link.addEventListener('click', event => {
+            event.preventDefault();
+            event.stopPropagation();
+            if (openFor === link) {
+                closeMenu();
+            } else {
+                openMenu(link);
+            }
+        });
+    });
+
+    document.addEventListener('click', event => {
+        if (menu && !menu.contains(event.target)) {
+            closeMenu();
+        }
+    });
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') {
+            closeMenu();
+        }
+    });
+    window.addEventListener('resize', closeMenu);
+}
 
 // Countries visited, shown on the travel map
 const visitedPlaces = [
