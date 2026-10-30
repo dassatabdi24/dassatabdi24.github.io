@@ -12517,3 +12517,14 @@ section.resume-section:nth-of-type(even) {
     max-width: 340px;
   }
 }
+
+/* Justified About text on wider screens; phones keep left alignment because
+   narrow justified lines open big gaps between words */
+
+@media (min-width: 768px) {
+  .about-text p {
+    text-align: justify !important;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+}
