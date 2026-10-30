@@ -12007,10 +12007,13 @@ section.resume-section:nth-of-type(even) {
   margin-top: 1.5rem;
 }
 
+.gallery {
+  align-items: start;
+}
+
 .gallery img {
   width: 100%;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
+  height: auto;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
 }
@@ -12155,4 +12158,266 @@ section.resume-section:nth-of-type(even) {
   background: var(--accent);
   border-color: var(--accent);
   color: #fff;
+}
+
+/* Talks & Press */
+
+.talk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.talk {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1.25rem;
+}
+
+.talk-icon {
+  flex: 0 0 2.5rem;
+  height: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 1rem;
+}
+
+.talk-icon.press {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.talk-title {
+  font-size: 1.02rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--ink);
+  margin-bottom: 0.25rem;
+}
+
+.talk-venue {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+/* Travel map legend */
+
+.map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.map-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.legend-swatch {
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 3px;
+  background: var(--accent);
+}
+
+.legend-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: #f59e0b;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 3px #f59e0b;
+}
+
+.place-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 1rem;
+}
+
+.place-label + .place-list {
+  margin-top: 0.5rem;
+}
+
+.place-chip.presented {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-color: #f5c6c2;
+  background: #fef2f1;
+  color: #a50e0e;
+}
+
+.place-chip.presented:hover {
+  border-color: #ea4335;
+  color: #a50e0e;
+}
+
+.place-chip.presented.active {
+  background: #ea4335;
+  border-color: #ea4335;
+  color: #fff;
+}
+
+.chip-pin {
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+.legend-pin {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Highlight a place picked from the chips, without moving the map */
+
+#travelMap path.is-highlighted {
+  fill: #f59e0b;
+  transition: fill 0.2s ease;
+}
+
+#travelMap image.is-highlighted,
+#travelMap circle.is-highlighted {
+  transform-box: fill-box;
+  transform: scale(1.25);
+  animation: pin-bounce 0.7s ease 2;
+}
+
+#travelMap image.is-highlighted {
+  transform-origin: 50% 100%;
+}
+
+#travelMap circle.is-highlighted {
+  transform-origin: 50% 50%;
+  fill: #f59e0b;
+}
+
+@keyframes pin-bounce {
+  0% { transform: translateY(0) scale(1); }
+  40% { transform: translateY(-8px) scale(1.35); }
+  100% { transform: translateY(0) scale(1.25); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #travelMap image.is-highlighted,
+  #travelMap circle.is-highlighted {
+    animation: none;
+    transform: scale(1.25);
+  }
+}
+
+/* Contact */
+
+.contact-lead {
+  max-width: 640px;
+  margin-bottom: 1.75rem;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  color: var(--text);
+  transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.contact-card:hover {
+  border-color: #c7d2fe;
+  color: var(--text);
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(17, 24, 39, 0.08);
+}
+
+.contact-icon {
+  flex: 0 0 2.75rem;
+  height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 1.1rem;
+}
+
+.contact-icon svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.contact-icon.bsky {
+  background: #e0f0ff;
+  color: #1185fe;
+}
+
+.contact-icon.linkedin {
+  background: #e8f1fb;
+  color: #0a66c2;
+}
+
+.contact-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.contact-value {
+  display: block;
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--ink);
+  word-break: break-word;
+}
+
+/* Contact icons */
+
+.contact-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.contact-icons .contact-icon {
+  flex: none;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  font-size: 1.35rem;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.contact-icons .contact-icon svg {
+  width: 1.45rem;
+  height: 1.45rem;
+}
+
+.contact-icons .contact-icon:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(17, 24, 39, 0.1);
+  text-decoration: none;
 }
