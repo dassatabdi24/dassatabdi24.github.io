@@ -177,14 +177,14 @@ const presentedPlaces = [
     { name: 'Sydney', event: 'ISMAR 2023', coords: [-33.87, 151.21] },
 ];
 
-const VISITED_COLOR = '#4f46e5';
+const VISITED_COLOR = '#0f766e';
 
-// Google Maps-style pin used for presented-at markers, drawn at PIN_SIZE px
+// Map pin (Google Maps shape, in the coral highlight colour) used for presented-at markers, drawn at PIN_SIZE px
 const PIN_SIZE = 30;
 const PIN_IMAGE = 'data:image/svg+xml,' + encodeURIComponent(
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">' +
-    '<path d="M12 23.3s-7.8-7.3-7.8-13.5a7.8 7.8 0 0 1 15.6 0C19.8 16 12 23.3 12 23.3z" fill="#EA4335" stroke="#B31412" stroke-width="1"/>' +
-    '<circle cx="12" cy="9.8" r="2.9" fill="#B31412"/></svg>'
+    '<path d="M12 23.3s-7.8-7.3-7.8-13.5a7.8 7.8 0 0 1 15.6 0C19.8 16 12 23.3 12 23.3z" fill="#E8590C" stroke="#9A3412" stroke-width="1"/>' +
+    '<circle cx="12" cy="9.8" r="2.9" fill="#9A3412"/></svg>'
 );
 
 // The map library always draws image markers at 23x23, so resize them afterwards.
@@ -237,10 +237,10 @@ function initTravelMap() {
         markersSelectable: false,
         selectedRegions: visitedPlaces.filter(place => !place.marker).map(place => place.code),
         regionStyle: {
-            initial: { fill: '#e2e8f0', stroke: '#ffffff', strokeWidth: 0.4, fillOpacity: 1 },
+            initial: { fill: '#dde3e0', stroke: '#ffffff', strokeWidth: 0.4, fillOpacity: 1 },
             hover: { fillOpacity: 0.75, cursor: 'pointer' },
             selected: { fill: VISITED_COLOR },
-            selectedHover: { fill: '#3730a3' },
+            selectedHover: { fill: '#115e59' },
         },
         markers: markers,
         markerStyle: {
